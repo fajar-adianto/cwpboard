@@ -1,0 +1,50 @@
+html{
+	height: 100%;	
+}
+
+.body {
+	height: 100%;
+	background: url("img/background_poster.png");
+	background-size: cover;
+}
+
+img{
+	width:400px;
+}
+
+.title {
+	margin-top: 75px;
+	font-size: 50px;
+	color: black;
+	text-align: center;
+	font-family: 'Pacifico', cursive;
+}
+
+#content {
+	margin-top: 100px;
+}
+
+/*#page{
+	margin-top: -250px;
+}*/
+
+#splash{
+    width:100%; 
+    overflow:hidden;
+    background: url('img/splashscreen.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+#frontpage{
+	background-color: Teal;
+	background-size: cover;
+}
+
+.poster{
+	width: 700px;
+}
+
+.natal{
+	width: 100%;
+}

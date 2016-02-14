@@ -1,0 +1,99 @@
+<!doctype html>
+<html>
+<head>
+    <title><?php require("name.php"); ?> - Audience List</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=0" />
+	<link href="css/bootstrap.min.css" rel="stylesheet">
+	<link href='https://fonts.googleapis.com/css?family=Pacifico' rel='stylesheet' type='text/css'>
+	<script src="roompage/virtualBoardWorker.js"></script>
+	<script type="text/javascript">
+		var status;
+		var fname;
+		var lname;
+		var email;
+		var gender;
+		var roomemail;
+		var roomname;
+		var boardname;
+		
+		window.onerror = function(msg, url, linenumber) {
+			alert('roomAUDIENCELIST\nError message: '+msg+'\nURL: '+url+'\nLine Number: '+linenumber);
+			return true;
+		}
+		
+		function VBWonMessage(msg)
+		{
+			if(msg[0] == "initData")
+			{
+				status = msg[1];
+				fname = msg[2];
+				lname = msg[3];
+				email = msg[4];
+				gender = msg[5];
+				roomemail = msg[6];
+				roomname = msg[7];
+				boardname = msg[8];
+				invokeVBW(VBWpostMessage("serverCheckIn"));
+			}
+			
+			if(msg[0] == "statUpdate")
+			{
+				status = msg[1];
+			}
+			
+			if(msg[0] == "audList")
+			{
+				document.getElementById("audienceList").innerHTML = (msg.length - 1) + " audiences in the room <br><br>";
+				for(var i = 1; i < msg.length; i++)
+				{
+					var audData = msg[i].split(",");
+					document.getElementById("audienceList").innerHTML += i + ". " + audData[2] + " " + audData[3] + " (" + audData[4] + ")<br>";
+					document.getElementById("audienceList").innerHTML += "Status = " + audData[0] + "<br>";
+					if((status == "admin")||(status == "coadmin"))
+					{
+						if((audData[0] != "passive")&&(audData[0] != status)&&(audData[0] != "admin"))
+						{
+							document.getElementById("audienceList").innerHTML += '<button class="btn btn-primary" type="button" onclick="statChangeRequest('+audData[1]+',\'passive\');">Passive</button>';
+						}
+						
+						if((audData[0] != "active")&&(audData[0] != status)&&(audData[0] != "admin"))
+						{
+							document.getElementById("audienceList").innerHTML += '<button class="btn btn-primary" type="button" onclick="statChangeRequest('+audData[1]+',\'active\');">Active</button> ';
+						}
+						
+						if((audData[0] != "coadmin")&&(audData[0] != "admin")&&(status == "admin"))
+						{
+							document.getElementById("audienceList").innerHTML += '<button class="btn btn-primary" type="button" onclick="statChangeRequest('+audData[1]+',\'coadmin\');">Coadmin</button>';
+						}
+						document.getElementById("audienceList").innerHTML += "<br>";
+					}
+					document.getElementById("audienceList").innerHTML += "<br>";
+				}
+			}
+		}
+		
+		function invokeVBW(msg)
+		{
+			parent.VBWonMessage(msg);
+		}
+		
+		function statChangeRequest(id, statChange)
+		{
+			invokeVBW(VBWpostMessage(["status", id, statChange]));
+		}
+	
+		window.onload = function() {
+			parent.invokeVBW_audienceList = function(msg)
+			{
+				parent.document.getElementById("audienceList").contentWindow.VBWonMessage(msg);
+			};
+			
+			invokeVBW(VBWpostMessage(["initRequest","AL"]));
+		}
+		
+	</script>
+</head>
+<body>
+	<div class="form-control" id="audienceList"></div>
+</body>
+</html>
