@@ -1,8 +1,8 @@
 <?php
-	$dbhost = 'localhost';
-	$dbuser = 'root';
-	$dbpass = '';
-	$dbname = 'collaboard';
+	$dbhost = '127.10.68.2';
+	$dbuser = 'adminquc4uCW';
+	$dbpass = 'HS5iXilyCy_t';
+	$dbname = 'cwp';
 	$usertbl = 'userlist_tbl';
 	
 	$mpurl = "mainpage.php";
