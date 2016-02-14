@@ -1,7 +1,7 @@
 <?php
-	$dbhost = '127.10.68.2';
-	$dbuser = 'adminquc4uCW';
-	$dbpass = 'HS5iXilyCy_t';
+	$dbhost = 'localhost';
+	$dbuser = 'root';
+	$dbpass = '';
 	$dbname = 'cwp';
 	$usertbl = 'userlist_tbl';
 	
