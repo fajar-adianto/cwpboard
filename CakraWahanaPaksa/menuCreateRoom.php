@@ -1,10 +1,10 @@
 <?php
 	header('Cache-Control: no-cache');
 
-	$dbhost = '127.10.68.2';
-	$dbuser = 'adminquc4uCW';
-	$dbpass = 'HS5iXilyCy_t';
-	$dbname = 'cwp';
+	$dbhost = 'localhost';
+	$dbuser = 'root';
+	$dbpass = '';
+	$dbname = 'collaboard';
 	$roomtbl = 'roomlist_tbl';
 	$error = 0;
 	$errormsg = "";
